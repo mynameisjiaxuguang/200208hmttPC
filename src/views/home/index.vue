@@ -30,7 +30,9 @@
   </el-aside>
   <!-- 上下布局 -->
   <el-container>
-    <el-header>Header</el-header>
+    <el-header>
+      <layout-header></layout-header>
+    </el-header>
     <el-main>
       <!-- 二级路由容器 -->
       <router-view></router-view>
@@ -42,11 +44,11 @@
 
 <script>
 // @ is an alias to /src
-
+import layoutHeader from '../../components/layout-header'
 export default {
   name: 'Home',
   components: {
-
+    'layout-header': layoutHeader
   }
 }
 </script>
