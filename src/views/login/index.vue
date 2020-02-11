@@ -79,11 +79,16 @@ export default {
             method: 'post',
             data: this.loginForm
           }).then(res => {
-            // console.log(res.data)
+            console.log(res.data)
             // 将token存储本地
             window.localStorage.setItem('user-token', res.data.data.token)
-          }).catch(err => {
-            console.log(err)
+            // 登录成功跳转主页
+            this.$router.push('/home')
+          }).catch(() => {
+            this.$message({
+              message: '手机号或验证码错误',
+              type: 'warning'
+            })
           })
         }
       })
