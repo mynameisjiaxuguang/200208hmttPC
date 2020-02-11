@@ -69,11 +69,22 @@ export default {
   methods: {
     login () {
       // this.$refs.formObj获取el-form的对象实例
-      this.$refs.formObj.validate(function (isOk) {
+      this.$refs.formObj.validate((isOk) => {
         if (isOk) {
           // 如果为true弹出登录成功
-          alert('登录成功')
-        //   此时需要调用接口登录
+        //   alert('登录成功')
+          //   此时需要调用接口登录
+          this.$axios({
+            url: '/authorizations',
+            method: 'post',
+            data: this.loginForm
+          }).then(res => {
+            // console.log(res.data)
+            // 将token存储本地
+            window.localStorage.setItem('user-token', res.data.data.token)
+          }).catch(err => {
+            console.log(err)
+          })
         }
       })
     }
