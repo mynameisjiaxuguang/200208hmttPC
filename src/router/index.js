@@ -61,5 +61,26 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
+// 路由拦截器方法
+// to表示去来自哪里的路由信息
+// from表示来自哪里的路由信息
+// next是方法用于路由放行
+// 判断用户登录状态，有就通过，没有就跳转到登录页面不让通过
+router.beforeEach((to, form, next) => {
+  console.log('所有页面访问都要经过')
+  // 登录页面直接放行
+  if (to.path === '/login') {
+    return next()
+  }
+  // 如果非登录页面才校验登陆状态
+  //  获取用户token
+  const token = window.localStorage.getItem('user-token')
+  // 判断是否有token，有就通过
+  if (token) {
+    next()
+  } else {
+    // 没有就跳转登录页
+    next('/login')
+  }
+})
 export default router
