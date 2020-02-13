@@ -6,6 +6,7 @@ import Login from '../views/login'
 import Home from '@/views/home'
 import Article from '@/views/article'
 import Publish from '@/views/publish'
+import NProgress from 'nprogress'
 Vue.use(VueRouter)
 
 const routes = [
@@ -61,14 +62,20 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-// 路由拦截器方法
+// 路由拦截器/导航守卫方法
 // to表示去来自哪里的路由信息
 // from表示来自哪里的路由信息
 // next是方法用于路由放行
 // 判断用户登录状态，有就通过，没有就跳转到登录页面不让通过
+// 全局前置守卫
 router.beforeEach((to, form, next) => {
+  // 开启顶部导航条特效
+  NProgress.start()
   console.log('所有页面访问都要经过')
   // 登录页面直接放行
+  console.log(to)
+  // 通过控制台找到的path
+
   if (to.path === '/login') {
     return next()
   }
@@ -81,6 +88,13 @@ router.beforeEach((to, form, next) => {
   } else {
     // 没有就跳转登录页
     next('/login')
+    // 在登录页非登录状态访问其他组件时没有token则一直执行next('/login')
+    // ，即登录页往登录页跳转所以进度条会卡，所以需要手动终止进度条
+    NProgress.done()
   }
+})
+router.afterEach((to, form) => {
+  // 结束顶部导航进度条
+  NProgress.done()
 })
 export default router

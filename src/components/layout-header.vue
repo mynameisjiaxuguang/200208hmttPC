@@ -18,7 +18,8 @@
                 <el-dropdown-menu>
                     <el-dropdown-item>个人信息</el-dropdown-item>
                     <el-dropdown-item>Git地址</el-dropdown-item>
-                    <el-dropdown-item>退出</el-dropdown-item>
+                    <!-- 给组件注册原生js事件使用.native修饰符 -->
+                    <el-dropdown-item @click.native="onLogout">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </el-col>
@@ -28,7 +29,30 @@
 
 <script>
 export default {
-
+  methods: {
+    onLogout () {
+    //   console.log('用户推出')
+      this.$confirm('此操作将退出登录, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        window.localStorage.removeItem('user-token')
+        this.$router.push('/login')
+        //   确认执行这里弹框
+        this.$message({
+          type: 'success',
+          message: '退出成功!'
+        })
+      }).catch()
+    //   () => {
+    //     this.$message({
+    //       type: 'info',
+    //       message: '已取消删除'
+    //     })
+    //   }
+    }
+  }
 }
 </script>
 

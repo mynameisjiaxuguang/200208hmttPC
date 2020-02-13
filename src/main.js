@@ -6,6 +6,8 @@ import ElementUI from 'element-ui'
 import './styles/index.less'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
+// 加载nprogress顶部样式文件，路径不需要写具体的
+import 'nprogress/nprogress.css'
 // 设置axios常态地址
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 // 将vue实例共享给全局使用
