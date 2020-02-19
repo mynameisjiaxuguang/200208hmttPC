@@ -4,6 +4,8 @@ import Layout from '../views/layout'
 import Login from '../views/login'
 // @代表src
 import Home from '@/views/home'
+import Comment from '@/views/comment'
+import CommentDetail from '@/views/comment-detail'
 import Article from '@/views/article'
 import Publish from '@/views/publish'
 import NProgress from 'nprogress'
@@ -26,6 +28,19 @@ const routes = [
       {
         path: '/publish',
         component: Publish
+      },
+      {
+        path: '/publish/:articleId',
+        component: Publish
+      }, {
+        path: '/comment',
+        component: Comment
+      },
+      {
+        path: '/comment/:articleId',
+        component: CommentDetail,
+        // 将路由参数映射给组件的props
+        props: true
       }
       // ,
       // {
@@ -71,9 +86,9 @@ const router = new VueRouter({
 router.beforeEach((to, form, next) => {
   // 开启顶部导航条特效
   NProgress.start()
-  console.log('所有页面访问都要经过')
+  // console.log('所有页面访问都要经过')
   // 登录页面直接放行
-  console.log(to)
+  // console.log(to)
   // 通过控制台找到的path
 
   if (to.path === '/login') {
